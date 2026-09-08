@@ -69,10 +69,12 @@ export default function RouteMap({
     layerRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
     return () => {
+      observer.disconnect();
       map.remove();
       mapRef.current = null;
       layerRef.current = null;
     };
+
   }, []);
 
   useEffect(() => {
