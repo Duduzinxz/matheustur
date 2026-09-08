@@ -44,7 +44,9 @@ export function HeroVideo({ posterUrl, className = "" }: HeroVideoProps) {
   }, []);
 
   return (
-    <div className={`absolute inset-0 overflow-hidden bg-black ${className}`}>
+    <div
+      className={`relative h-full w-full overflow-hidden bg-black ${className}`}
+    >
       {videoAvailable && (
         <video
           ref={videoRef}
