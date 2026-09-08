@@ -47,12 +47,25 @@ export default function RouteMap({
         maxZoom: 18,
       },
     ).addTo(map);
-    tiles
-      .getContainer()
-      ?.style.setProperty(
+    // No tema escuro o mapa recebe um filtro para combinar com o site;
+    // no tema claro ele fica com as cores originais.
+    const tileEl = tiles.getContainer();
+    const aplicaFiltro = () => {
+      const claro = document.documentElement.classList.contains("light");
+      tileEl?.style.setProperty(
         "filter",
-        "invert(1) hue-rotate(180deg) brightness(0.85) contrast(1.1) saturate(0.7)",
+        claro
+          ? "none"
+          : "invert(1) hue-rotate(180deg) brightness(0.85) contrast(1.1) saturate(0.7)",
       );
+    };
+    aplicaFiltro();
+    const observer = new MutationObserver(aplicaFiltro);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
     layerRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
     return () => {
