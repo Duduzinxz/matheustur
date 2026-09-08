@@ -133,13 +133,6 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="pt-BR">
       <head>
         <HeadContent />
-        {/* Tema escuro por padrão; aplica a escolha salva antes de pintar a tela. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{var t=localStorage.getItem('matheustur-theme')==='light'?'light':'dark';document.documentElement.classList.add(t);document.documentElement.style.colorScheme=t;}catch(e){document.documentElement.classList.add('dark');}",
-          }}
-        />
       </head>
       <body>
         {children}
