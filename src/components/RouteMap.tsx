@@ -51,12 +51,12 @@ export default function RouteMap({
     // no tema claro ele fica com as cores originais.
     const tileEl = tiles.getContainer();
     const aplicaFiltro = () => {
-      const claro = document.documentElement.classList.contains("light");
+      const escuro = document.documentElement.classList.contains("dark");
       tileEl?.style.setProperty(
         "filter",
-        claro
-          ? "none"
-          : "invert(1) hue-rotate(180deg) brightness(0.85) contrast(1.1) saturate(0.7)",
+        escuro
+          ? "invert(1) hue-rotate(180deg) brightness(0.85) contrast(1.1) saturate(0.7)"
+          : "none",
       );
     };
     aplicaFiltro();

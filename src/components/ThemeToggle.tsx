@@ -7,18 +7,18 @@ export type Theme = "dark" | "light";
 
 function applyTheme(theme: Theme) {
   const root = document.documentElement;
-  root.classList.toggle("light", theme === "light");
   root.classList.toggle("dark", theme === "dark");
   root.style.colorScheme = theme;
 }
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
-  // O padrão do site é escuro; só troca se a pessoa já escolheu claro antes.
-  const [theme, setTheme] = useState<Theme>("dark");
+  // O padrão do site é claro (prata da van/logo); só troca se a pessoa já
+  // escolheu escuro antes.
+  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
     const saved = window.localStorage.getItem(STORAGE_KEY);
-    const initial: Theme = saved === "light" ? "light" : "dark";
+    const initial: Theme = saved === "dark" ? "dark" : "light";
     setTheme(initial);
     applyTheme(initial);
   }, []);
@@ -36,7 +36,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       onClick={toggle}
       aria-label={theme === "dark" ? "Ativar tema claro" : "Ativar tema escuro"}
       title={theme === "dark" ? "Tema claro" : "Tema escuro"}
-      className={`grid size-10 place-items-center rounded-md border border-border text-silver transition-colors hover:text-tur-green ${className}`}
+      className={`grid size-10 place-items-center rounded-md border border-border transition-colors hover:text-tur-green ${className}`}
     >
       {theme === "dark" ? (
         <Sun className="size-5" strokeWidth={2} />

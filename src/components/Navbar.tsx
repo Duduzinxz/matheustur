@@ -41,6 +41,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const handleSectionClick = useSectionLinkHandler(() => setMenuOpen(false));
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -56,17 +57,26 @@ export function Navbar() {
     };
   }, [menuOpen]);
 
+  // Só a Home tem o vídeo escuro do herói por trás do topo da página; nas
+  // demais rotas o fundo já é o do tema (claro por padrão), então a navbar
+  // não pode ficar transparente com texto claro — ficaria ilegível.
+  const isHome = pathname === "/";
+  const overHero = isHome && !scrolled && !menuOpen;
+  const showChrome = scrolled || menuOpen || !isHome;
+  const linkColorClass = overHero
+    ? "text-white/85 hover:text-tur-green"
+    : "text-foreground/80 hover:text-tur-green";
+
   return (
     <header
       className="fixed inset-x-0 top-0 z-40 transition-all duration-300"
       style={{
-        backgroundColor:
-          scrolled || menuOpen
-            ? "color-mix(in oklab, var(--background) 88%, transparent)"
-            : "transparent",
-        backdropFilter: scrolled || menuOpen ? "blur(14px)" : "none",
-        boxShadow: scrolled ? "0 8px 30px -12px rgba(0,0,0,0.6)" : "none",
-        borderBottom: scrolled
+        backgroundColor: showChrome
+          ? "color-mix(in oklab, var(--background) 88%, transparent)"
+          : "transparent",
+        backdropFilter: showChrome ? "blur(14px)" : "none",
+        boxShadow: scrolled ? "0 8px 30px -12px rgba(0,0,0,0.25)" : "none",
+        borderBottom: showChrome
           ? "1px solid var(--border)"
           : "1px solid transparent",
       }}
@@ -87,14 +97,14 @@ export function Navbar() {
               key={link.label}
               href={link.href}
               onClick={handleSectionClick(link.href)}
-              className="text-silver/90 transition-colors hover:text-tur-green"
+              className={`transition-colors ${linkColorClass}`}
             >
               {link.label}
             </a>
           ))}
           <Link
             to="/simulacao"
-            className="text-silver/90 transition-colors hover:text-tur-green"
+            className={`transition-colors ${linkColorClass}`}
             activeProps={{ className: "text-tur-green" }}
           >
             Simular viagem
@@ -102,7 +112,7 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <ThemeToggle />
+          <ThemeToggle className={linkColorClass} />
           <a
             href={WHATSAPP_URL}
             target="_blank"
@@ -116,7 +126,7 @@ export function Navbar() {
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={menuOpen}
-            className="grid size-10 place-items-center rounded-md border border-border text-silver lg:hidden"
+            className={`grid size-10 place-items-center rounded-md border border-border transition-colors lg:hidden ${linkColorClass}`}
           >
             {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -137,7 +147,7 @@ export function Navbar() {
               key={link.label}
               href={link.href}
               onClick={handleSectionClick(link.href)}
-              className="rounded-md px-3 py-3 text-sm font-bold uppercase tracking-wide text-silver/90 transition-colors hover:bg-secondary hover:text-tur-green"
+              className="rounded-md px-3 py-3 text-sm font-bold uppercase tracking-wide text-foreground/80 transition-colors hover:bg-secondary hover:text-tur-green"
             >
               {link.label}
             </a>
@@ -145,7 +155,7 @@ export function Navbar() {
           <Link
             to="/simulacao"
             onClick={() => setMenuOpen(false)}
-            className="rounded-md px-3 py-3 text-sm font-bold uppercase tracking-wide text-silver/90 transition-colors hover:bg-secondary hover:text-tur-green"
+            className="rounded-md px-3 py-3 text-sm font-bold uppercase tracking-wide text-foreground/80 transition-colors hover:bg-secondary hover:text-tur-green"
           >
             Simular viagem
           </Link>

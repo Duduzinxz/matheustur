@@ -46,7 +46,7 @@ export function Hero({ posterUrl }: { posterUrl: string }) {
         </h1>
 
         <p
-          className="fade-up mt-5 max-w-md text-base text-silver/90 sm:text-lg"
+          className="fade-up mt-5 max-w-md text-base text-white/80 sm:text-lg"
           style={{ animationDelay: "180ms" }}
         >
           Turismo, excursões e fretamento com segurança, conforto e pontualidade
@@ -75,7 +75,7 @@ export function Hero({ posterUrl }: { posterUrl: string }) {
         </div>
 
         <p
-          className="fade-up mt-8 text-xs font-semibold uppercase tracking-[0.3em] text-silver/70"
+          className="fade-up mt-8 text-xs font-semibold uppercase tracking-[0.3em] text-white/60"
           style={{ animationDelay: "340ms" }}
         >
           Atendemos MG · SP · RJ · ES
