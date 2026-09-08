@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, MessageCircle, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import logoUrl from "@/assets/logo-matheus-tur.png";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const WHATSAPP_NUMBER = "5532999036855";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -101,6 +102,7 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <a
             href={WHATSAPP_URL}
             target="_blank"
