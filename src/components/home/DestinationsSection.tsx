@@ -1,6 +1,6 @@
 import { getStateStyle } from "@/lib/cities";
 import { Reveal } from "@/components/Reveal";
-import { StateIcon } from "@/components/StateIcon";
+import { StateShape } from "@/components/StateShape";
 
 const STATES = [
   {
@@ -50,23 +50,20 @@ export function DestinationsSection() {
                     backgroundColor: style.surface,
                   }}
                 >
-                  <StateIcon
+                  <StateShape
                     uf={s.uf}
                     color={style.color}
-                    className="absolute -right-3 -top-3 size-24 opacity-[0.14] transition-transform duration-500 group-hover:scale-110 group-hover:opacity-20"
+                    className="absolute -right-4 -top-4 h-24 w-auto opacity-[0.14] transition-transform duration-500 group-hover:scale-110 group-hover:opacity-20"
                   />
                   <div className="relative flex items-center justify-between">
-                    <StateIcon
+                    <StateShape
                       uf={s.uf}
                       color={style.color}
-                      className="size-10"
+                      className="h-11 w-auto drop-shadow-sm"
                     />
                     <span
-                      className="grid size-8 place-items-center rounded-full text-xs font-bold"
-                      style={{
-                        backgroundColor: style.color,
-                        color: style.foreground,
-                      }}
+                      className="text-xs font-bold uppercase tracking-widest"
+                      style={{ color: style.color }}
                     >
                       {s.uf}
                     </span>
