@@ -1,24 +1,46 @@
 import { createFileRoute } from "@tanstack/react-router";
+import vanUrl from "@/assets/van-matheus-tur.png";
+import { Hero } from "@/components/home/Hero";
+import { ServicesSection } from "@/components/home/ServicesSection";
+import { ProcessSection } from "@/components/home/ProcessSection";
+import { WhyUsSection } from "@/components/home/WhyUsSection";
+import { DestinationsSection } from "@/components/home/DestinationsSection";
+import { SimulationCTA } from "@/components/home/SimulationCTA";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Matheus Tur | Turismo e Transporte em Ubá MG" },
+      {
+        name: "description",
+        content:
+          "Matheus Tur: turismo, excursões e fretamento em Ubá, Minas Gerais. Viagens com segurança, conforto e pontualidade para MG, SP, RJ e ES. Simule sua viagem e peça orçamento pelo WhatsApp.",
+      },
+      {
+        property: "og:title",
+        content: "Matheus Tur | Turismo e Transporte em Ubá MG",
+      },
+      {
+        property: "og:description",
+        content:
+          "Viagens, excursões e fretamento saindo de Ubá MG. Simule sua rota e receba o orçamento pelo WhatsApp.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main>
+      <Hero posterUrl={vanUrl} />
+      <ServicesSection />
+      <ProcessSection />
+      <WhyUsSection vanImageUrl={vanUrl} />
+      <DestinationsSection />
+      <SimulationCTA />
+    </main>
   );
 }
