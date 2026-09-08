@@ -124,3 +124,32 @@
     transform: translateY(0);
   }
 }
+
+/* Tema claro (opcional). O padrão do site é o escuro: sem classe no <html>,
+   valem os valores de :root acima. A classe .light inverte a paleta. */
+.light {
+  --graphite: oklch(0.92 0.005 250);
+  --silver: oklch(0.32 0.01 250);
+  --silver-muted: oklch(0.45 0.01 250);
+  --background: oklch(0.99 0.002 250);
+  --foreground: oklch(0.18 0.01 250);
+  --card: oklch(0.97 0.004 250);
+  --card-foreground: oklch(0.18 0.01 250);
+  --popover: oklch(0.99 0.002 250);
+  --popover-foreground: oklch(0.18 0.01 250);
+  --primary: oklch(0.22 0.015 250);
+  --primary-foreground: oklch(0.98 0.005 250);
+  --secondary: oklch(0.95 0.005 250);
+  --secondary-foreground: oklch(0.2 0.01 250);
+  --muted: oklch(0.95 0.005 250);
+  --muted-foreground: oklch(0.45 0.01 250);
+  --accent: oklch(0.92 0.008 250);
+  --accent-foreground: oklch(0.2 0.01 250);
+  --tur-green: oklch(0.62 0.19 145);
+  --tur-green-foreground: oklch(0.99 0.01 145);
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.88 0.006 250);
+  --input: oklch(0.88 0.006 250);
+  --ring: oklch(0.62 0.19 145);
+}
