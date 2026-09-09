@@ -102,6 +102,30 @@ function PainelPage() {
     };
   }, []);
 
+  async function mudarStatus(id: string, status: string) {
+    const { error } = await supabase
+      .from("solicitacoes")
+      .update({ status })
+      .eq("id", id);
+    if (error) {
+      toast.error("Não foi possível atualizar a situação.");
+      return;
+    }
+    toast.success("Situação atualizada.");
+    refetch();
+  }
+
+  async function excluir(id: string) {
+    const { error } = await supabase.from("solicitacoes").delete().eq("id", id);
+    setConfirmId(null);
+    if (error) {
+      toast.error("Não foi possível excluir a solicitação.");
+      return;
+    }
+    toast.success("Solicitação excluída.");
+    refetch();
+  }
+
   async function sair() {
     await supabase.auth.signOut();
     navigate({ to: "/auth" });
