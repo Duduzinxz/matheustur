@@ -11,7 +11,7 @@ export function Hero({ posterUrl }: { posterUrl: string }) {
   return (
     <section
       id="top"
-      className="relative flex min-h-[92svh] items-end overflow-hidden bg-black sm:min-h-screen"
+      className="relative flex min-h-[92svh] items-end overflow-hidden bg-graphite sm:min-h-screen"
     >
       <HeroVideo posterUrl={posterUrl} />
 
