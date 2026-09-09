@@ -139,7 +139,16 @@ function SimulacaoPage() {
       "Aguardo o orçamento. Obrigado!",
     ].filter(Boolean);
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
-  }, [origin, destination, passengers, date, time, sim]);
+  }, [
+    origin,
+    destination,
+    passengers,
+    date,
+    time,
+    returnDate,
+    returnTime,
+    sim,
+  ]);
 
   async function registrarSolicitacao() {
     if (!origin || !destination || !sim) return;
