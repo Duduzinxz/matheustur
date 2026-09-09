@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { getStateStyle } from "@/lib/cities";
@@ -47,8 +48,23 @@ function formatDate(value: string | null) {
   return `${d}/${m}/${y}`;
 }
 
+const STATUS_OPTIONS = [
+  { value: "novo", label: "Novo" },
+  { value: "em_andamento", label: "Em andamento" },
+  { value: "cancelado", label: "Cancelado" },
+  { value: "concluido", label: "Concluído" },
+];
+
+const STATUS_CLASS: Record<string, string> = {
+  novo: "border-silver/40 text-silver",
+  em_andamento: "border-tur-green/60 text-tur-green",
+  cancelado: "border-destructive/60 text-destructive",
+  concluido: "border-border text-muted-foreground",
+};
+
 function PainelPage() {
   const navigate = useNavigate();
+  const [confirmId, setConfirmId] = useState<string | null>(null);
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["solicitacoes"],
     queryFn: async () => {
@@ -85,6 +101,30 @@ function PainelPage() {
       supabase.removeChannel(channel);
     };
   }, []);
+
+  async function mudarStatus(id: string, status: string) {
+    const { error } = await supabase
+      .from("solicitacoes")
+      .update({ status })
+      .eq("id", id);
+    if (error) {
+      toast.error("Não foi possível atualizar a situação.");
+      return;
+    }
+    toast.success("Situação atualizada.");
+    refetch();
+  }
+
+  async function excluir(id: string) {
+    const { error } = await supabase.from("solicitacoes").delete().eq("id", id);
+    setConfirmId(null);
+    if (error) {
+      toast.error("Não foi possível excluir a solicitação.");
+      return;
+    }
+    toast.success("Solicitação excluída.");
+    refetch();
+  }
 
   async function sair() {
     await supabase.auth.signOut();
@@ -153,6 +193,8 @@ function PainelPage() {
                 <th className="px-4 py-3">Horário</th>
                 <th className="px-4 py-3">Passageiros</th>
                 <th className="px-4 py-3">Km total</th>
+                <th className="px-4 py-3">Situação</th>
+                <th className="px-4 py-3 text-right">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -196,6 +238,52 @@ function PainelPage() {
                     <td className="px-4 py-3">{s.passageiros ?? "—"}</td>
                     <td className="px-4 py-3 font-bold text-tur-green">
                       ~{s.km_total} km
+                    </td>
+                    <td className="px-4 py-3">
+                      <select
+                        value={s.status}
+                        onChange={(e) => mudarStatus(s.id, e.target.value)}
+                        aria-label="Situação do frete"
+                        className={`rounded-md border bg-background px-2 py-1 text-xs font-semibold uppercase tracking-wide ${
+                          STATUS_CLASS[s.status] ?? "border-border"
+                        }`}
+                      >
+                        {STATUS_OPTIONS.map((o) => (
+                          <option key={o.value} value={o.value}>
+                            {o.label}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      {confirmId === s.id ? (
+                        <div className="flex items-center justify-end gap-2">
+                          <span className="text-xs text-muted-foreground">
+                            Confirmar exclusão?
+                          </span>
+                          <button
+                            onClick={() => excluir(s.id)}
+                            className="rounded-md bg-destructive px-2 py-1 text-xs font-semibold uppercase text-destructive-foreground"
+                          >
+                            Sim
+                          </button>
+                          <button
+                            onClick={() => setConfirmId(null)}
+                            className="rounded-md border border-border px-2 py-1 text-xs font-semibold uppercase text-muted-foreground"
+                          >
+                            Não
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => setConfirmId(s.id)}
+                          aria-label="Excluir solicitação"
+                          title="Excluir solicitação"
+                          className="rounded-md border border-border p-2 text-muted-foreground hover:border-destructive/60 hover:text-destructive"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      )}
                     </td>
                   </tr>
                 );
