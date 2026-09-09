@@ -48,8 +48,23 @@ function formatDate(value: string | null) {
   return `${d}/${m}/${y}`;
 }
 
+const STATUS_OPTIONS = [
+  { value: "novo", label: "Novo" },
+  { value: "em_andamento", label: "Em andamento" },
+  { value: "cancelado", label: "Cancelado" },
+  { value: "concluido", label: "Concluído" },
+];
+
+const STATUS_CLASS: Record<string, string> = {
+  novo: "border-silver/40 text-silver",
+  em_andamento: "border-tur-green/60 text-tur-green",
+  cancelado: "border-destructive/60 text-destructive",
+  concluido: "border-border text-muted-foreground",
+};
+
 function PainelPage() {
   const navigate = useNavigate();
+  const [confirmId, setConfirmId] = useState<string | null>(null);
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["solicitacoes"],
     queryFn: async () => {
