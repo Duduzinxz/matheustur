@@ -239,6 +239,52 @@ function PainelPage() {
                     <td className="px-4 py-3 font-bold text-tur-green">
                       ~{s.km_total} km
                     </td>
+                    <td className="px-4 py-3">
+                      <select
+                        value={s.status}
+                        onChange={(e) => mudarStatus(s.id, e.target.value)}
+                        aria-label="Situação do frete"
+                        className={`rounded-md border bg-background px-2 py-1 text-xs font-semibold uppercase tracking-wide ${
+                          STATUS_CLASS[s.status] ?? "border-border"
+                        }`}
+                      >
+                        {STATUS_OPTIONS.map((o) => (
+                          <option key={o.value} value={o.value}>
+                            {o.label}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      {confirmId === s.id ? (
+                        <div className="flex items-center justify-end gap-2">
+                          <span className="text-xs text-muted-foreground">
+                            Confirmar exclusão?
+                          </span>
+                          <button
+                            onClick={() => excluir(s.id)}
+                            className="rounded-md bg-destructive px-2 py-1 text-xs font-semibold uppercase text-destructive-foreground"
+                          >
+                            Sim
+                          </button>
+                          <button
+                            onClick={() => setConfirmId(null)}
+                            className="rounded-md border border-border px-2 py-1 text-xs font-semibold uppercase text-muted-foreground"
+                          >
+                            Não
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => setConfirmId(s.id)}
+                          aria-label="Excluir solicitação"
+                          title="Excluir solicitação"
+                          className="rounded-md border border-border p-2 text-muted-foreground hover:border-destructive/60 hover:text-destructive"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 );
               })}
