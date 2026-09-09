@@ -42,6 +42,8 @@ function SimulacaoPage() {
   const [passengers, setPassengers] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+  const [returnTime, setReturnTime] = useState("");
   const [rota, setRota] = useState<{
     deslocamentoKm: number;
     trechoKm: number;
@@ -121,8 +123,10 @@ function SimulacaoPage() {
       `🏁 *Destino final:* ${destination.name} - ${destination.uf}`,
       "",
       "*DATA E HORA DESEJADAS*",
-      `📅 *Data:* ${formatDate(date) ?? "a combinar"}`,
-      `⏰ *Horário de saída:* ${time || "a combinar"}`,
+      `📅 *Data de ida:* ${formatDate(date) ?? "a combinar"}`,
+      `⏰ *Horário de ida:* ${time || "a combinar"}`,
+      `📅 *Data de volta:* ${formatDate(returnDate) ?? "a combinar"}`,
+      `⏰ *Horário de volta:* ${returnTime || "a combinar"}`,
       "",
       "*DETALHES*",
       `👥 *Passageiros:* ${passengers || "a combinar"}`,
