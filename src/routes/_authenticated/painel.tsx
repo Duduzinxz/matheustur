@@ -193,6 +193,8 @@ function PainelPage() {
                 <th className="px-4 py-3">Horário</th>
                 <th className="px-4 py-3">Passageiros</th>
                 <th className="px-4 py-3">Km total</th>
+                <th className="px-4 py-3">Situação</th>
+                <th className="px-4 py-3 text-right">Ações</th>
               </tr>
             </thead>
             <tbody>
