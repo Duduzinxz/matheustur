@@ -14,6 +14,297 @@ export type Database = {
   }
   public: {
     Tables: {
+      abastecimentos: {
+        Row: {
+          combustivel: string | null
+          created_at: string
+          data: string
+          id: string
+          km: number | null
+          litros: number
+          observacoes: string | null
+          posto: string | null
+          preco_litro: number | null
+          valor_total: number
+          veiculo_id: string
+        }
+        Insert: {
+          combustivel?: string | null
+          created_at?: string
+          data?: string
+          id?: string
+          km?: number | null
+          litros?: number
+          observacoes?: string | null
+          posto?: string | null
+          preco_litro?: number | null
+          valor_total?: number
+          veiculo_id: string
+        }
+        Update: {
+          combustivel?: string | null
+          created_at?: string
+          data?: string
+          id?: string
+          km?: number | null
+          litros?: number
+          observacoes?: string | null
+          posto?: string | null
+          preco_litro?: number | null
+          valor_total?: number
+          veiculo_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "abastecimentos_veiculo_id_fkey"
+            columns: ["veiculo_id"]
+            isOneToOne: false
+            referencedRelation: "veiculos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      despesas: {
+        Row: {
+          categoria: string
+          comprovante_url: string | null
+          created_at: string
+          data: string
+          descricao: string | null
+          id: string
+          km: number | null
+          valor: number
+          veiculo_id: string
+        }
+        Insert: {
+          categoria?: string
+          comprovante_url?: string | null
+          created_at?: string
+          data?: string
+          descricao?: string | null
+          id?: string
+          km?: number | null
+          valor?: number
+          veiculo_id: string
+        }
+        Update: {
+          categoria?: string
+          comprovante_url?: string | null
+          created_at?: string
+          data?: string
+          descricao?: string | null
+          id?: string
+          km?: number | null
+          valor?: number
+          veiculo_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "despesas_veiculo_id_fkey"
+            columns: ["veiculo_id"]
+            isOneToOne: false
+            referencedRelation: "veiculos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      km_registros: {
+        Row: {
+          created_at: string
+          data: string
+          id: string
+          km: number
+          km_rodados: number
+          observacoes: string | null
+          veiculo_id: string
+        }
+        Insert: {
+          created_at?: string
+          data?: string
+          id?: string
+          km: number
+          km_rodados?: number
+          observacoes?: string | null
+          veiculo_id: string
+        }
+        Update: {
+          created_at?: string
+          data?: string
+          id?: string
+          km?: number
+          km_rodados?: number
+          observacoes?: string | null
+          veiculo_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "km_registros_veiculo_id_fkey"
+            columns: ["veiculo_id"]
+            isOneToOne: false
+            referencedRelation: "veiculos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      manutencoes: {
+        Row: {
+          created_at: string
+          data: string
+          descricao: string | null
+          fornecedor: string | null
+          id: string
+          km: number | null
+          observacoes: string | null
+          proxima_data: string | null
+          proximo_km: number | null
+          tipo: string
+          valor: number
+          veiculo_id: string
+        }
+        Insert: {
+          created_at?: string
+          data?: string
+          descricao?: string | null
+          fornecedor?: string | null
+          id?: string
+          km?: number | null
+          observacoes?: string | null
+          proxima_data?: string | null
+          proximo_km?: number | null
+          tipo?: string
+          valor?: number
+          veiculo_id: string
+        }
+        Update: {
+          created_at?: string
+          data?: string
+          descricao?: string | null
+          fornecedor?: string | null
+          id?: string
+          km?: number | null
+          observacoes?: string | null
+          proxima_data?: string | null
+          proximo_km?: number | null
+          tipo?: string
+          valor?: number
+          veiculo_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "manutencoes_veiculo_id_fkey"
+            columns: ["veiculo_id"]
+            isOneToOne: false
+            referencedRelation: "veiculos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pneus: {
+        Row: {
+          created_at: string
+          data_instalacao: string
+          data_retirada: string | null
+          id: string
+          km_instalacao: number
+          km_retirada: number | null
+          marca: string | null
+          medida: string | null
+          modelo: string | null
+          observacoes: string | null
+          posicao: string
+          quantidade: number
+          valor: number
+          veiculo_id: string
+        }
+        Insert: {
+          created_at?: string
+          data_instalacao?: string
+          data_retirada?: string | null
+          id?: string
+          km_instalacao?: number
+          km_retirada?: number | null
+          marca?: string | null
+          medida?: string | null
+          modelo?: string | null
+          observacoes?: string | null
+          posicao?: string
+          quantidade?: number
+          valor?: number
+          veiculo_id: string
+        }
+        Update: {
+          created_at?: string
+          data_instalacao?: string
+          data_retirada?: string | null
+          id?: string
+          km_instalacao?: number
+          km_retirada?: number | null
+          marca?: string | null
+          medida?: string | null
+          modelo?: string | null
+          observacoes?: string | null
+          posicao?: string
+          quantidade?: number
+          valor?: number
+          veiculo_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pneus_veiculo_id_fkey"
+            columns: ["veiculo_id"]
+            isOneToOne: false
+            referencedRelation: "veiculos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      servicos: {
+        Row: {
+          cliente: string | null
+          created_at: string
+          data: string
+          id: string
+          km_final: number | null
+          km_inicial: number | null
+          observacoes: string | null
+          tipo: string
+          valor: number
+          veiculo_id: string
+        }
+        Insert: {
+          cliente?: string | null
+          created_at?: string
+          data?: string
+          id?: string
+          km_final?: number | null
+          km_inicial?: number | null
+          observacoes?: string | null
+          tipo?: string
+          valor?: number
+          veiculo_id: string
+        }
+        Update: {
+          cliente?: string | null
+          created_at?: string
+          data?: string
+          id?: string
+          km_final?: number | null
+          km_inicial?: number | null
+          observacoes?: string | null
+          tipo?: string
+          valor?: number
+          veiculo_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "servicos_veiculo_id_fkey"
+            columns: ["veiculo_id"]
+            isOneToOne: false
+            referencedRelation: "veiculos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       solicitacoes: {
         Row: {
           created_at: string
@@ -86,6 +377,60 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      veiculos: {
+        Row: {
+          ano: number | null
+          created_at: string
+          data_aquisicao: string | null
+          id: string
+          intervalo_oleo_km: number
+          km_atual: number
+          marca: string | null
+          modelo: string | null
+          nome: string
+          numero: string | null
+          observacoes: string | null
+          placa: string | null
+          status: string
+          tipo: string
+          updated_at: string
+        }
+        Insert: {
+          ano?: number | null
+          created_at?: string
+          data_aquisicao?: string | null
+          id?: string
+          intervalo_oleo_km?: number
+          km_atual?: number
+          marca?: string | null
+          modelo?: string | null
+          nome: string
+          numero?: string | null
+          observacoes?: string | null
+          placa?: string | null
+          status?: string
+          tipo?: string
+          updated_at?: string
+        }
+        Update: {
+          ano?: number | null
+          created_at?: string
+          data_aquisicao?: string | null
+          id?: string
+          intervalo_oleo_km?: number
+          km_atual?: number
+          marca?: string | null
+          modelo?: string | null
+          nome?: string
+          numero?: string | null
+          observacoes?: string | null
+          placa?: string | null
+          status?: string
+          tipo?: string
+          updated_at?: string
         }
         Relationships: []
       }
