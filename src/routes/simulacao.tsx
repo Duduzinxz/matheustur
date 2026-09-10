@@ -160,6 +160,8 @@ function SimulacaoPage() {
         destino_uf: destination.uf,
         data_viagem: date || null,
         horario: time || null,
+        data_volta: returnDate || null,
+        horario_volta: returnTime || null,
         passageiros: passengers ? Number(passengers) : null,
         km_deslocamento: sim.deslocamento,
         km_trecho: sim.trecho,
