@@ -18,9 +18,11 @@ export type Database = {
         Row: {
           created_at: string
           data_viagem: string | null
+          data_volta: string | null
           destino_cidade: string
           destino_uf: string
           horario: string | null
+          horario_volta: string | null
           id: string
           km_deslocamento: number
           km_total: number
@@ -33,9 +35,11 @@ export type Database = {
         Insert: {
           created_at?: string
           data_viagem?: string | null
+          data_volta?: string | null
           destino_cidade: string
           destino_uf: string
           horario?: string | null
+          horario_volta?: string | null
           id?: string
           km_deslocamento?: number
           km_total?: number
@@ -48,9 +52,11 @@ export type Database = {
         Update: {
           created_at?: string
           data_viagem?: string | null
+          data_volta?: string | null
           destino_cidade?: string
           destino_uf?: string
           horario?: string | null
+          horario_volta?: string | null
           id?: string
           km_deslocamento?: number
           km_total?: number
