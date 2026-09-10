@@ -160,6 +160,8 @@ function SimulacaoPage() {
         destino_uf: destination.uf,
         data_viagem: date || null,
         horario: time || null,
+        data_volta: returnDate || null,
+        horario_volta: returnTime || null,
         passageiros: passengers ? Number(passengers) : null,
         km_deslocamento: sim.deslocamento,
         km_trecho: sim.trecho,
@@ -277,7 +279,7 @@ function SimulacaoPage() {
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                  Data desejada
+                  Data de ida
                 </label>
                 <input
                   type="date"
@@ -288,12 +290,37 @@ function SimulacaoPage() {
               </div>
               <div>
                 <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                  Horário de saída
+                  Horário de ida
                 </label>
                 <input
                   type="time"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
+                  className="w-full rounded-md border border-input bg-secondary px-3 py-2.5 outline-none focus:border-tur-green"
+                />
+              </div>
+            </div>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                  Data de volta
+                </label>
+                <input
+                  type="date"
+                  value={returnDate}
+                  min={date || undefined}
+                  onChange={(e) => setReturnDate(e.target.value)}
+                  className="w-full rounded-md border border-input bg-secondary px-3 py-2.5 outline-none focus:border-tur-green"
+                />
+              </div>
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                  Horário de volta
+                </label>
+                <input
+                  type="time"
+                  value={returnTime}
+                  onChange={(e) => setReturnTime(e.target.value)}
                   className="w-full rounded-md border border-input bg-secondary px-3 py-2.5 outline-none focus:border-tur-green"
                 />
               </div>
