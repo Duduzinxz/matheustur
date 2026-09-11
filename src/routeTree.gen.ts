@@ -14,7 +14,10 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as RedefinirSenhaRouteImport } from './routes/redefinir-senha'
 import { Route as SimulacaoRouteImport } from './routes/simulacao'
+import { Route as AuthenticatedFrotaRouteImport } from './routes/_authenticated/frota'
 import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated/painel'
+import { Route as AuthenticatedFrotaIndexRouteImport } from './routes/_authenticated/frota.index'
+import { Route as AuthenticatedFrotaVeiculosRouteImport } from './routes/_authenticated/frota.veiculos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,18 +43,37 @@ const SimulacaoRoute = SimulacaoRouteImport.update({
   path: '/simulacao',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedFrotaRoute = AuthenticatedFrotaRouteImport.update({
+  id: '/frota',
+  path: '/frota',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPainelRoute = AuthenticatedPainelRouteImport.update({
   id: '/painel',
   path: '/painel',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedFrotaIndexRoute = AuthenticatedFrotaIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedFrotaRoute,
+} as any)
+const AuthenticatedFrotaVeiculosRoute =
+  AuthenticatedFrotaVeiculosRouteImport.update({
+    id: '/veiculos',
+    path: '/veiculos',
+    getParentRoute: () => AuthenticatedFrotaRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/simulacao': typeof SimulacaoRoute
+  '/frota': typeof AuthenticatedFrotaRouteWithChildren
   '/painel': typeof AuthenticatedPainelRoute
+  '/frota/veiculos': typeof AuthenticatedFrotaVeiculosRoute
+  '/frota/': typeof AuthenticatedFrotaIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -59,6 +81,8 @@ export interface FileRoutesByTo {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/simulacao': typeof SimulacaoRoute
   '/painel': typeof AuthenticatedPainelRoute
+  '/frota/veiculos': typeof AuthenticatedFrotaVeiculosRoute
+  '/frota': typeof AuthenticatedFrotaIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -67,13 +91,31 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/simulacao': typeof SimulacaoRoute
+  '/_authenticated/frota': typeof AuthenticatedFrotaRouteWithChildren
   '/_authenticated/painel': typeof AuthenticatedPainelRoute
+  '/_authenticated/frota/veiculos': typeof AuthenticatedFrotaVeiculosRoute
+  '/_authenticated/frota/': typeof AuthenticatedFrotaIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/redefinir-senha' | '/simulacao' | '/painel'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/redefinir-senha'
+    | '/simulacao'
+    | '/frota'
+    | '/painel'
+    | '/frota/veiculos'
+    | '/frota/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/redefinir-senha' | '/simulacao' | '/painel'
+  to:
+    | '/'
+    | '/auth'
+    | '/redefinir-senha'
+    | '/simulacao'
+    | '/painel'
+    | '/frota/veiculos'
+    | '/frota'
   id:
     | '__root__'
     | '/'
@@ -81,7 +123,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/redefinir-senha'
     | '/simulacao'
+    | '/_authenticated/frota'
     | '/_authenticated/painel'
+    | '/_authenticated/frota/veiculos'
+    | '/_authenticated/frota/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -129,6 +174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SimulacaoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/frota': {
+      id: '/_authenticated/frota'
+      path: '/frota'
+      fullPath: '/frota'
+      preLoaderRoute: typeof AuthenticatedFrotaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/painel': {
       id: '/_authenticated/painel'
       path: '/painel'
@@ -136,14 +188,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPainelRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/frota/': {
+      id: '/_authenticated/frota/'
+      path: '/'
+      fullPath: '/frota/'
+      preLoaderRoute: typeof AuthenticatedFrotaIndexRouteImport
+      parentRoute: typeof AuthenticatedFrotaRoute
+    }
+    '/_authenticated/frota/veiculos': {
+      id: '/_authenticated/frota/veiculos'
+      path: '/veiculos'
+      fullPath: '/frota/veiculos'
+      preLoaderRoute: typeof AuthenticatedFrotaVeiculosRouteImport
+      parentRoute: typeof AuthenticatedFrotaRoute
+    }
   }
 }
 
+interface AuthenticatedFrotaRouteChildren {
+  AuthenticatedFrotaVeiculosRoute: typeof AuthenticatedFrotaVeiculosRoute
+  AuthenticatedFrotaIndexRoute: typeof AuthenticatedFrotaIndexRoute
+}
+
+const AuthenticatedFrotaRouteChildren: AuthenticatedFrotaRouteChildren = {
+  AuthenticatedFrotaVeiculosRoute: AuthenticatedFrotaVeiculosRoute,
+  AuthenticatedFrotaIndexRoute: AuthenticatedFrotaIndexRoute,
+}
+
+const AuthenticatedFrotaRouteWithChildren =
+  AuthenticatedFrotaRoute._addFileChildren(AuthenticatedFrotaRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedFrotaRoute: typeof AuthenticatedFrotaRouteWithChildren
   AuthenticatedPainelRoute: typeof AuthenticatedPainelRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedFrotaRoute: AuthenticatedFrotaRouteWithChildren,
   AuthenticatedPainelRoute: AuthenticatedPainelRoute,
 }
 
