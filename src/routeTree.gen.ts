@@ -17,6 +17,9 @@ import { Route as SimulacaoRouteImport } from './routes/simulacao'
 import { Route as AuthenticatedFrotaRouteImport } from './routes/_authenticated/frota'
 import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated/painel'
 import { Route as AuthenticatedFrotaIndexRouteImport } from './routes/_authenticated/frota.index'
+import { Route as AuthenticatedFrotaVeiculoIdRouteImport } from './routes/_authenticated/frota.$veiculoId'
+import { Route as AuthenticatedFrotaFechamentoRouteImport } from './routes/_authenticated/frota.fechamento'
+import { Route as AuthenticatedFrotaHistoricoRouteImport } from './routes/_authenticated/frota.historico'
 import { Route as AuthenticatedFrotaVeiculosRouteImport } from './routes/_authenticated/frota.veiculos'
 
 const IndexRoute = IndexRouteImport.update({
@@ -58,6 +61,24 @@ const AuthenticatedFrotaIndexRoute = AuthenticatedFrotaIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedFrotaRoute,
 } as any)
+const AuthenticatedFrotaVeiculoIdRoute =
+  AuthenticatedFrotaVeiculoIdRouteImport.update({
+    id: '/$veiculoId',
+    path: '/$veiculoId',
+    getParentRoute: () => AuthenticatedFrotaRoute,
+  } as any)
+const AuthenticatedFrotaFechamentoRoute =
+  AuthenticatedFrotaFechamentoRouteImport.update({
+    id: '/fechamento',
+    path: '/fechamento',
+    getParentRoute: () => AuthenticatedFrotaRoute,
+  } as any)
+const AuthenticatedFrotaHistoricoRoute =
+  AuthenticatedFrotaHistoricoRouteImport.update({
+    id: '/historico',
+    path: '/historico',
+    getParentRoute: () => AuthenticatedFrotaRoute,
+  } as any)
 const AuthenticatedFrotaVeiculosRoute =
   AuthenticatedFrotaVeiculosRouteImport.update({
     id: '/veiculos',
@@ -72,6 +93,9 @@ export interface FileRoutesByFullPath {
   '/simulacao': typeof SimulacaoRoute
   '/frota': typeof AuthenticatedFrotaRouteWithChildren
   '/painel': typeof AuthenticatedPainelRoute
+  '/frota/$veiculoId': typeof AuthenticatedFrotaVeiculoIdRoute
+  '/frota/fechamento': typeof AuthenticatedFrotaFechamentoRoute
+  '/frota/historico': typeof AuthenticatedFrotaHistoricoRoute
   '/frota/veiculos': typeof AuthenticatedFrotaVeiculosRoute
   '/frota/': typeof AuthenticatedFrotaIndexRoute
 }
@@ -81,6 +105,9 @@ export interface FileRoutesByTo {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/simulacao': typeof SimulacaoRoute
   '/painel': typeof AuthenticatedPainelRoute
+  '/frota/$veiculoId': typeof AuthenticatedFrotaVeiculoIdRoute
+  '/frota/fechamento': typeof AuthenticatedFrotaFechamentoRoute
+  '/frota/historico': typeof AuthenticatedFrotaHistoricoRoute
   '/frota/veiculos': typeof AuthenticatedFrotaVeiculosRoute
   '/frota': typeof AuthenticatedFrotaIndexRoute
 }
@@ -93,6 +120,9 @@ export interface FileRoutesById {
   '/simulacao': typeof SimulacaoRoute
   '/_authenticated/frota': typeof AuthenticatedFrotaRouteWithChildren
   '/_authenticated/painel': typeof AuthenticatedPainelRoute
+  '/_authenticated/frota/$veiculoId': typeof AuthenticatedFrotaVeiculoIdRoute
+  '/_authenticated/frota/fechamento': typeof AuthenticatedFrotaFechamentoRoute
+  '/_authenticated/frota/historico': typeof AuthenticatedFrotaHistoricoRoute
   '/_authenticated/frota/veiculos': typeof AuthenticatedFrotaVeiculosRoute
   '/_authenticated/frota/': typeof AuthenticatedFrotaIndexRoute
 }
@@ -105,6 +135,9 @@ export interface FileRouteTypes {
     | '/simulacao'
     | '/frota'
     | '/painel'
+    | '/frota/$veiculoId'
+    | '/frota/fechamento'
+    | '/frota/historico'
     | '/frota/veiculos'
     | '/frota/'
   fileRoutesByTo: FileRoutesByTo
@@ -114,6 +147,9 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/simulacao'
     | '/painel'
+    | '/frota/$veiculoId'
+    | '/frota/fechamento'
+    | '/frota/historico'
     | '/frota/veiculos'
     | '/frota'
   id:
@@ -125,6 +161,9 @@ export interface FileRouteTypes {
     | '/simulacao'
     | '/_authenticated/frota'
     | '/_authenticated/painel'
+    | '/_authenticated/frota/$veiculoId'
+    | '/_authenticated/frota/fechamento'
+    | '/_authenticated/frota/historico'
     | '/_authenticated/frota/veiculos'
     | '/_authenticated/frota/'
   fileRoutesById: FileRoutesById
@@ -195,6 +234,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFrotaIndexRouteImport
       parentRoute: typeof AuthenticatedFrotaRoute
     }
+    '/_authenticated/frota/$veiculoId': {
+      id: '/_authenticated/frota/$veiculoId'
+      path: '/$veiculoId'
+      fullPath: '/frota/$veiculoId'
+      preLoaderRoute: typeof AuthenticatedFrotaVeiculoIdRouteImport
+      parentRoute: typeof AuthenticatedFrotaRoute
+    }
+    '/_authenticated/frota/fechamento': {
+      id: '/_authenticated/frota/fechamento'
+      path: '/fechamento'
+      fullPath: '/frota/fechamento'
+      preLoaderRoute: typeof AuthenticatedFrotaFechamentoRouteImport
+      parentRoute: typeof AuthenticatedFrotaRoute
+    }
+    '/_authenticated/frota/historico': {
+      id: '/_authenticated/frota/historico'
+      path: '/historico'
+      fullPath: '/frota/historico'
+      preLoaderRoute: typeof AuthenticatedFrotaHistoricoRouteImport
+      parentRoute: typeof AuthenticatedFrotaRoute
+    }
     '/_authenticated/frota/veiculos': {
       id: '/_authenticated/frota/veiculos'
       path: '/veiculos'
@@ -206,11 +266,17 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedFrotaRouteChildren {
+  AuthenticatedFrotaVeiculoIdRoute: typeof AuthenticatedFrotaVeiculoIdRoute
+  AuthenticatedFrotaFechamentoRoute: typeof AuthenticatedFrotaFechamentoRoute
+  AuthenticatedFrotaHistoricoRoute: typeof AuthenticatedFrotaHistoricoRoute
   AuthenticatedFrotaVeiculosRoute: typeof AuthenticatedFrotaVeiculosRoute
   AuthenticatedFrotaIndexRoute: typeof AuthenticatedFrotaIndexRoute
 }
 
 const AuthenticatedFrotaRouteChildren: AuthenticatedFrotaRouteChildren = {
+  AuthenticatedFrotaVeiculoIdRoute: AuthenticatedFrotaVeiculoIdRoute,
+  AuthenticatedFrotaFechamentoRoute: AuthenticatedFrotaFechamentoRoute,
+  AuthenticatedFrotaHistoricoRoute: AuthenticatedFrotaHistoricoRoute,
   AuthenticatedFrotaVeiculosRoute: AuthenticatedFrotaVeiculosRoute,
   AuthenticatedFrotaIndexRoute: AuthenticatedFrotaIndexRoute,
 }
