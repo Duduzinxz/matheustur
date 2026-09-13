@@ -57,8 +57,8 @@ export function QuickActions({
   apenas,
 }: {
   veiculos: Veiculo[];
-  veiculoFixo?: string;
-  apenas?: Kind[];
+  veiculoFixo?: string | undefined;
+  apenas?: Kind[] | undefined;
 }) {
   const [aberto, setAberto] = useState<Kind | null>(null);
   const kinds = apenas ?? (Object.keys(LABELS) as Kind[]);
@@ -115,7 +115,7 @@ function FormLancamento({
 }: {
   kind: Kind;
   veiculos: Veiculo[];
-  veiculoFixo?: string;
+  veiculoFixo?: string | undefined;
   onDone: () => void;
 }) {
   const recarregar = useRecarregarFrota();

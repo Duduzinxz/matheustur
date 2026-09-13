@@ -19,8 +19,8 @@ export function Field({
 }: {
   label: string;
   children: ReactNode;
-  hint?: string;
-  className?: string;
+  hint?: string | undefined;
+  className?: string | undefined;
 }) {
   return (
     <label className={cn("block", className)}>
@@ -41,7 +41,7 @@ export function StatCard({
 }: {
   label: string;
   value: string;
-  hint?: string;
+  hint?: string | undefined;
   tone?: "default" | "green" | "red" | "yellow";
 }) {
   const toneCls =
@@ -70,8 +70,8 @@ export function Section({
   children,
 }: {
   title: string;
-  description?: string;
-  action?: ReactNode;
+  description?: string | undefined;
+  action?: ReactNode | undefined;
   children: ReactNode;
 }) {
   return (
@@ -134,7 +134,7 @@ export function VeiculoSelect({
   veiculos: Veiculo[];
   value: string;
   onChange: (v: string) => void;
-  incluirTodos?: boolean;
+  incluirTodos?: boolean | undefined;
 }) {
   return (
     <select
