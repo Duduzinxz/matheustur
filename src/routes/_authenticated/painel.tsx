@@ -147,6 +147,12 @@ function PainelPage() {
           </p>
         </div>
         <div className="flex gap-2">
+          <Link
+            to="/frota"
+            className="rounded-md bg-tur-green px-4 py-2 text-sm font-bold uppercase tracking-wide text-tur-green-foreground transition-transform hover:scale-[1.03]"
+          >
+            Controle de frota
+          </Link>
           <button
             onClick={() => refetch()}
             className="rounded-md border border-silver/40 px-4 py-2 text-sm font-semibold uppercase tracking-wide text-silver hover:bg-silver/10"
