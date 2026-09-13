@@ -12,7 +12,6 @@ import {
   TableWrap,
   Vazio,
   VeiculoSelect,
-  inputCls,
 } from "@/components/frota/ui";
 import {
   brl,
